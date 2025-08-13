@@ -4,10 +4,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Controller\ChapterController;
 use Controller\HatController;
-use Controller\PlayerController;
+// use Controller\PlayerController;
 
 $chapterController = new ChapterController();
-// $hatController = new HatController();
+$hatController = new HatController();
 // $playerController = new PlayerController();
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -18,13 +18,13 @@ $endpoint = $_GET['endpoint'] ?? null;
 switch ($endpoint) {
     case 'chapters':
         switch ($method) {
-            // case 'GET':
-            //     if (isset($_GET['id'])) {
-            //         $chapterController->getChapterById($_GET['id']);
-            //     } else {
-            //         $chapterController->getChapters();
-            //     }
-            //     break;
+            case 'GET':
+                if (isset($_GET['id'])) {
+                    $chapterController->getChapterById($_GET['id']);
+                } else {
+                    $chapterController->getChapters();
+                }
+                break;
             case 'POST':
                 $chapterController->createChapter();
                 break;

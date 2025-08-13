@@ -68,7 +68,7 @@ class ChapterController
     {
         $data = json_decode(file_get_contents("php://input"));
 
-        if (isset($data->id) && isset($data->name) && isset($data->description)) {
+        if (isset($data->id) && isset($data->name) && isset($data->description) && isset($data->acts) && isset($data->timepieces) && isset($data->time_rifts) && isset($data->boss_name)) {
             $chapter = new Chapter();
             $chapter->id = $data->id;
             $chapter->name = $data->name;
