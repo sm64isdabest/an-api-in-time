@@ -13,14 +13,17 @@ $hatController = new HatController();
 $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_GET['endpoint'] ?? null;
 
-// header("Content-Type: application/json; charset=utf-8");
-
 switch ($endpoint) {
+    // Capítulos
     case 'chapters':
         switch ($method) {
             case 'GET':
                 if (isset($_GET['id'])) {
                     $chapterController->getChapterById($_GET['id']);
+                } elseif (isset($_GET['name'])) {
+                    $chapterController->getChapterByName($_GET['name']);
+                } elseif (isset($_GET['boss_name'])) {
+                    $chapterController->getChapterByBossName($_GET['boss_name']);
                 } else {
                     $chapterController->getChapters();
                 }
@@ -36,21 +39,70 @@ switch ($endpoint) {
                 break;
             default:
                 http_response_code(405);
-                echo $method;
                 echo json_encode(["message" => "Method not allowed"]);
                 break;
         }
         break;
 
-    // Exemplo para futuras rotas
-    /*
+    // Chapéus
     case 'hats':
-        // similar estrutura para hats
+        switch ($method) {
+            case 'GET':
+                if (isset($_GET['id'])) {
+                    $chapterController->getChapterById($_GET['id']);
+                } elseif (isset($_GET['name'])) {
+                    $chapterController->getChapterByName($_GET['name']);
+                } elseif (isset($_GET['boss_name'])) {
+                    $chapterController->getChapterByBossName($_GET['boss_name']);
+                } else {
+                    $chapterController->getChapters();
+                }
+                break;
+            case 'POST':
+                $chapterController->createChapter();
+                break;
+            case 'PUT':
+                $chapterController->updateChapter();
+                break;
+            case 'DELETE':
+                $chapterController->deleteChapter();
+                break;
+            default:
+                http_response_code(405);
+                echo json_encode(["message" => "Method not allowed"]);
+                break;
+        }
         break;
+
+    // Jogadores
     case 'players':
-        // similar estrutura para players
+        switch ($method) {
+            case 'GET':
+                if (isset($_GET['id'])) {
+                    $chapterController->getChapterById($_GET['id']);
+                } elseif (isset($_GET['name'])) {
+                    $chapterController->getChapterByName($_GET['name']);
+                } elseif (isset($_GET['boss_name'])) {
+                    $chapterController->getChapterByBossName($_GET['boss_name']);
+                } else {
+                    $chapterController->getChapters();
+                }
+                break;
+            case 'POST':
+                $chapterController->createChapter();
+                break;
+            case 'PUT':
+                $chapterController->updateChapter();
+                break;
+            case 'DELETE':
+                $chapterController->deleteChapter();
+                break;
+            default:
+                http_response_code(405);
+                echo json_encode(["message" => "Method not allowed"]);
+                break;
+        }
         break;
-    */
 
     default:
         http_response_code(404);

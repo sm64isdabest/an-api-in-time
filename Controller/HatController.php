@@ -6,7 +6,7 @@ use Model\Hat;
 
 class HatController
 {
-    // Listar capítulos
+    // Listar chapéus
     public function getHats()
     {
         $hat = new Hat();
@@ -21,7 +21,7 @@ class HatController
         }
     }
 
-    // Buscar capítulo por ID
+    // Buscar chapéu por ID
     public function getHatById($id)
     {
         $hat = new Hat();
@@ -32,11 +32,26 @@ class HatController
             echo json_encode($data);
         } else {
             header("Content-Type: application/json", true, 404);
-            echo json_encode(["message" => "Capítulo não encontrado"]);
+            echo json_encode(["message" => "Chapéu não encontrado"]);
         }
     }
 
-    // Criar capítulo
+    // Buscar chapéu por nome
+    public function getHatByName($name)
+    {
+        $hat = new Hat();
+        $data = $hat->getByName($name);
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Chapéu não encontrado"]);
+        }
+    }
+
+    // Criar chapéu
     public function createHat()
     {
         $data = json_decode(file_get_contents("php://input"));
@@ -61,7 +76,7 @@ class HatController
         }
     }
 
-    // Atualizar capítulo
+    // Atualizar chapéu
     public function updateHat()
     {
         $data = json_decode(file_get_contents("php://input"));
@@ -87,7 +102,7 @@ class HatController
         }
     }
 
-    // Deletar capítulo
+    // Deletar chapéu
     public function deleteHat()
     {
         $id = $_GET['id'] ?? null;

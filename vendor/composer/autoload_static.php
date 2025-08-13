@@ -11,30 +11,30 @@ class ComposerStaticInite952c3c07848deea155a415f9b5d3a44
     );
 
     public static $prefixLengthsPsr4 = array (
-        'T' => 
+        'T' =>
         array (
             'Thiago\\AhitApi\\' => 15,
         ),
-        'M' => 
+        'M' =>
         array (
             'Model\\' => 6,
         ),
-        'C' => 
+        'C' =>
         array (
             'Controller\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Thiago\\AhitApi\\' => 
+        'Thiago\\AhitApi\\' =>
         array (
             0 => __DIR__ . '/../..' . '/AHIT-API',
         ),
-        'Model\\' => 
+        'Model\\' =>
         array (
             0 => __DIR__ . '/../..' . '/Model',
         ),
-        'Controller\\' => 
+        'Controller\\' =>
         array (
             0 => __DIR__ . '/../..' . '/Controller',
         ),

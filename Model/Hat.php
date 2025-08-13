@@ -39,7 +39,17 @@ class Hat
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Criar capítulo
+    // Buscar por nome
+    public function getByName($name)
+    {
+        $sql = "SELECT * FROM hats WHERE name = :name";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":name", $name);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Criar chapéu
     public function createHat()
     {
         $sql = "INSERT INTO hats
@@ -56,7 +66,7 @@ class Hat
         ]);
     }
 
-    // Atualizar capítulo
+    // Atualizar chapéu
     public function updateHat()
     {
         $sql = "UPDATE hats
@@ -74,7 +84,7 @@ class Hat
         ]);
     }
 
-    // Excluir capítulo
+    // Excluir chapéu
     public function deleteHat()
     {
         $sql = "DELETE FROM hats WHERE id = :id";

@@ -36,6 +36,61 @@ class ChapterController
         }
     }
 
+    // Buscar capítulo por nome
+    public function getChapterByName($name)
+    {
+        $chapter = new Chapter();
+        $data = $chapter->getByName($name);
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Capítulo não encontrado"]);
+        }
+    }
+
+    // Buscar capítulo por nome do chefe
+    public function getChapterByBossName($boss_name)
+    {
+        $chapter = new Chapter();
+        $data = $chapter->getByBossName($boss_name);
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Capítulo não encontrado"]);
+        }
+    }
+
+    // Filtrar capítulos por critérios numéricos
+    // Exemplo: ?acts_min=2&timepieces_max=5
+    public function getFilteredChapters()
+    {
+        $chapter = new Chapter();
+        $filters = [
+            'acts_min' => $_GET['acts_min'] ?? null,
+            'acts_max' => $_GET['acts_max'] ?? null,
+            'timepieces_min' => $_GET['timepieces_min'] ?? null,
+            'timepieces_max' => $_GET['timepieces_max'] ?? null,
+            'time_rifts_min' => $_GET['time_rifts_min'] ?? null,
+            'time_rifts_max' => $_GET['time_rifts_max'] ?? null,
+        ];
+
+        $data = $chapter->getFilteredChapters(array_filter($filters));
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Capítulo não encontrado"]);
+        }
+    }
+
     // Criar capítulo
     public function createChapter()
     {
