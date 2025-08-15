@@ -4,11 +4,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Controller\ChapterController;
 use Controller\HatController;
-// use Controller\PlayerController;
+use Controller\PlayerController;
 
 $chapterController = new ChapterController();
 $hatController = new HatController();
-// $playerController = new PlayerController();
+$playerController = new PlayerController();
 
 $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_GET['endpoint'] ?? null;
@@ -24,6 +24,12 @@ switch ($endpoint) {
                     $chapterController->getChapterByName($_GET['name']);
                 } elseif (isset($_GET['boss_name'])) {
                     $chapterController->getChapterByBossName($_GET['boss_name']);
+                } elseif (
+                    isset($_GET['acts_min']) || isset($_GET['acts_max']) ||
+                    isset($_GET['timepieces_min']) || isset($_GET['timepieces_max']) ||
+                    isset($_GET['time_rifts_min']) || isset($_GET['time_rifts_max'])
+                ) {
+                    $chapterController->getFilteredChapters();
                 } else {
                     $chapterController->getChapters();
                 }
@@ -49,23 +55,27 @@ switch ($endpoint) {
         switch ($method) {
             case 'GET':
                 if (isset($_GET['id'])) {
-                    $chapterController->getChapterById($_GET['id']);
+                    $hatController->getHatById($_GET['id']);
                 } elseif (isset($_GET['name'])) {
-                    $chapterController->getChapterByName($_GET['name']);
-                } elseif (isset($_GET['boss_name'])) {
-                    $chapterController->getChapterByBossName($_GET['boss_name']);
+                    $hatController->getHatByName($_GET['name']);
+                } elseif (isset($_GET['ability'])) {
+                    $hatController->getHatByAbility($_GET['ability']);
+                } elseif (
+                    isset($_GET['yarn_cost_min']) || isset($_GET['yarn_cost_max'])
+                ) {
+                    $hatController->getFilteredHats();
                 } else {
-                    $chapterController->getChapters();
+                    $hatController->getHats();
                 }
                 break;
             case 'POST':
-                $chapterController->createChapter();
+                $hatController->createHat();
                 break;
             case 'PUT':
-                $chapterController->updateChapter();
+                $hatController->updateHat();
                 break;
             case 'DELETE':
-                $chapterController->deleteChapter();
+                $hatController->deleteHat();
                 break;
             default:
                 http_response_code(405);
@@ -79,23 +89,27 @@ switch ($endpoint) {
         switch ($method) {
             case 'GET':
                 if (isset($_GET['id'])) {
-                    $chapterController->getChapterById($_GET['id']);
-                } elseif (isset($_GET['name'])) {
-                    $chapterController->getChapterByName($_GET['name']);
-                } elseif (isset($_GET['boss_name'])) {
-                    $chapterController->getChapterByBossName($_GET['boss_name']);
+                    $playerController->getPlayerById($_GET['id']);
+                } elseif (isset($_GET['username'])) {
+                    $playerController->getPlayerByUsername($_GET['username']);
+                } elseif (
+                    isset($_GET['unlocked_hats_min']) || isset($_GET['unlocked_hats_max']) ||
+                    isset($_GET['completed_chapters_min']) || isset($_GET['completed_chapters_max']) ||
+                    isset($_GET['collected_timepieces_min']) || isset($_GET['collected_timepieces_max'])
+                ) {
+                    $playerController->getFilteredPlayers();
                 } else {
-                    $chapterController->getChapters();
+                    $playerController->getPlayers();
                 }
                 break;
             case 'POST':
-                $chapterController->createChapter();
+                $playerController->createPlayer();
                 break;
             case 'PUT':
-                $chapterController->updateChapter();
+                $playerController->updatePlayer();
                 break;
             case 'DELETE':
-                $chapterController->deleteChapter();
+                $playerController->deletePlayer();
                 break;
             default:
                 http_response_code(405);
@@ -106,7 +120,7 @@ switch ($endpoint) {
 
     default:
         http_response_code(404);
-        echo json_encode(["message" => "Endpoint not found"]);
+        echo json_encode(["message" => "Endpoint não encontrado"]);
         break;
 }
 

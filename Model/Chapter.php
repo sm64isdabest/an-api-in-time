@@ -159,7 +159,7 @@ class Chapter
         $sql = "DELETE FROM chapters WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;

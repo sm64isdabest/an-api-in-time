@@ -51,6 +51,42 @@ class HatController
         }
     }
 
+    // Buscar chapéu por habilidade
+    public function getHatByAbility($ability)
+    {
+        $hat = new Hat();
+        $data = $hat->getByAbility($ability);
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Chapéu não encontrado"]);
+        }
+    }
+
+    // Filtrar chapéus por critérios numéricos
+    // Exemplo: ?yarn_cost_min=2&yarn_cost_max=5
+    public function getFilteredHats()
+    {
+        $hat = new Hat();
+        $filters = [
+            'yarn_cost_min' => $_GET['yarn_cost_min'] ?? null,
+            'yarn_cost_max' => $_GET['yarn_cost_max'] ?? null,
+        ];
+
+        $data = $hat->getFilteredHats(array_filter($filters));
+
+        if ($data) {
+            header("Content-Type: application/json", true, 200);
+            echo json_encode($data);
+        } else {
+            header("Content-Type: application/json", true, 404);
+            echo json_encode(["message" => "Chapéu não encontrado"]);
+        }
+    }
+
     // Criar chapéu
     public function createHat()
     {

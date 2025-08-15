@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/08/2025 às 17:16
--- Versão do servidor: 11.3.0-MariaDB
+-- Tempo de geração: 16/08/2025 às 01:30
+-- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -49,7 +49,8 @@ INSERT INTO `chapters` (`id`, `name`, `description`, `acts`, `time_rifts`, `time
 (4, 'Alpine Skyline', 'Montanhas altíssimas, ventos cortantes e mistérios escondidos nas nuvens.', 4, 2, 7, 'Nenhum', '2025-08-13 12:27:56'),
 (5, 'Time\'s End', 'O confronto final contra a Mustache Girl. Derrote-a e restaure o fluxo do tempo, encerrando a aventura.', 1, 1, 2, 'Mustache Girl', '2025-08-13 12:32:27'),
 (6, 'The Arctic Cruise', 'Um luxuoso cruzeiro no Ártico... até que tudo começa a dar errado.', 3, 2, 5, 'Nenhum', '2025-08-13 12:33:48'),
-(7, 'Nyakuza Metro', 'Explore o metrô da Nyakuza City, cheio de gangues felinas e aventuras urbanas.', 4, 2, 5, 'The Empress', '2025-08-13 12:34:55');
+(7, 'Nyakuza Metro', 'Explore o metrô da Nyakuza City, cheio de gangues felinas e aventuras urbanas.', 4, 2, 5, 'The Empress', '2025-08-13 12:34:55'),
+(8, 'Battle of the tralalelos', 'Uma casa mal assombrada, assustadora!', 11, 3, 14, 'Juan', '2025-08-15 01:09:29');
 
 -- --------------------------------------------------------
 
@@ -66,6 +67,14 @@ CREATE TABLE `hats` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `hats`
+--
+
+INSERT INTO `hats` (`id`, `name`, `icon_url`, `ability`, `yarn_cost`, `created_at`) VALUES
+(2, 'Rodizio não tão gostoso', 'https://images.tcdn.com.br/img/img_prod/966605/chapeu_mundial_rancho_aveludado_marrom_premium_modelo_gustavo_lima_8049_3539_1_38f8ab878499f3722734c5b752c28b42.jpg', 'Vira cowboy.', 12, '2025-08-15 01:53:58'),
+(3, 'Legal mortal', 'https://images.tcdn.com.br/img/img_prod/966605/chapeu_mundial_rancho_aveludado_marrom_premium_modelo_gustavo_lima_8049_3539_1_38f8ab878499f3722734c5b752c28b42.jpg', 'Vira desumilde.', 6, '2025-08-15 01:56:56');
+
 -- --------------------------------------------------------
 
 --
@@ -75,12 +84,19 @@ CREATE TABLE `hats` (
 CREATE TABLE `players` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `current_hat_id` int(11) DEFAULT NULL,
-  `unlocked_hats` text DEFAULT NULL,
-  `completed_chapters` text DEFAULT NULL,
+  `unlocked_hats` int(11) NOT NULL DEFAULT 0,
+  `completed_chapters` int(11) NOT NULL DEFAULT 0,
   `collected_timepieces` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `players`
+--
+
+INSERT INTO `players` (`id`, `username`, `unlocked_hats`, `completed_chapters`, `collected_timepieces`, `created_at`) VALUES
+(1, 'lilas_aleatorio', 32, 99, 90, '2025-08-15 20:18:52'),
+(3, 'lilo sorvete', 11, 3, 3, '2025-08-15 20:25:55');
 
 --
 -- Índices para tabelas despejadas
@@ -112,19 +128,19 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT de tabela `chapters`
 --
 ALTER TABLE `chapters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `hats`
 --
 ALTER TABLE `hats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
